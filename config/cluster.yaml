@@ -1,0 +1,68 @@
+apiVersion: kops/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: 2018-06-10T21:43:43Z
+  name: __KOPS_CLUSTER_NAME__
+spec:
+  api:
+    dns: {}
+  authorization:
+    RBAC: {}
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  channel: stable
+  cloudProvider: aws
+  configBase: s3://__BUCKET_NAME__/__KOPS_CLUSTER_NAME__
+  etcdClusters:
+  - etcdMembers:
+    - instanceGroup: master-us-east-1a
+      name: a
+    - instanceGroup: master-us-east-1b
+      name: b
+    - instanceGroup: master-us-east-1d
+      name: c
+    name: main
+  - etcdMembers:
+    - instanceGroup: master-us-east-1a
+      name: a
+    - instanceGroup: master-us-east-1b
+      name: b
+    - instanceGroup: master-us-east-1d
+      name: c
+    name: events
+  networking:
+    weave: 
+      mtu: 8912
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  sshAccess: 
+  - 0.0.0.0/0
+  subnets:
+  - name: us-east-1a
+    zone: us-east-1a
+    type: Public
+  - name: us-east-1b
+    zone: us-east-1b
+    type: Public
+  - name: us-east-1d
+    zone: us-east-1d
+    type: Public
+  
+  - name: utility-us-east-1a
+    zone: us-east-1a
+    type: Utility
+  - name: utility-us-east-1b
+    zone: us-east-1b
+    type: Utility
+  - name: utility-us-east-1d
+    zone: us-east-1d
+    type: Utility
+
+  topology:
+    bastion:
+      bastionPublicName: bastion.__KOPS_CLUSTER_NAME__
+    dns:
+      type: Public
+    masters: private
+    nodes: private

@@ -1,0 +1,18 @@
+apiVersion: kops/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: 2018-06-10T21:43:43Z
+  labels:
+    kops.k8s.io/cluster: __KOPS_CLUSTER_NAME__
+  name: master-us-east-1b
+spec:
+  image: kope.io/k8s-1.6-debian-jessie-amd64-hvm-ebs-2017-05-02
+  machineType: __MASTER_EC2__
+  maxSize: 1
+  minSize: 1
+  role: Master
+  subnets:
+  - us-east-1b
+  nodeLabels:
+    spot: "true"
+  maxPrice: "__MASTER_SPOT__"

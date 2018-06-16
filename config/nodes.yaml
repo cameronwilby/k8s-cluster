@@ -1,0 +1,20 @@
+apiVersion: kops/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: 2018-06-10T21:43:43Z
+  labels:
+    kops.k8s.io/cluster: __KOPS_CLUSTER_NAME__
+  name: nodes
+spec:
+  nodeLabels:
+    spot: "true"
+  image: kope.io/k8s-1.6-debian-jessie-amd64-hvm-ebs-2017-05-02
+  machineType: __NODE_EC2__
+  maxSize: __NODE_MAX__
+  minSize: 1
+  maxPrice: "__NODE_SPOT__"
+  role: Node
+  subnets:
+  - us-east-1a
+  - us-east-1b
+  - us-east-1d
